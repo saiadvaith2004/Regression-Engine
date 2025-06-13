@@ -151,7 +151,7 @@ HTML_TEMPLATE = '''
             <label for="modelname">Car Model Name</label>
             <input type="text" id="modelname" name="modelname" required />
             <label for="year">Year</label>
-            <input type="number" id="year" name="year" min="1900" max="2025" required />
+            <input type="number" id="year" name="year" min="1900" max="3000" required />
             <label for="km_driven">Kilometers Driven</label>
             <input type="number" id="km_driven" name="km_driven" min="0" required />
             <label for="fuel">Fuel Type</label>
