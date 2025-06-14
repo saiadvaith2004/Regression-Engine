@@ -16,11 +16,12 @@ data = pd.read_csv("CarsDataset.csv")
 
 # Preprocess and train the model
 def train_model(modelname):
-    model_data = data[data['name'] == modelname].copy()
-    if model_data.empty:
+    required_data = data[data['name'] == modelname].copy()
+    print(required_data)
+    if required_data.empty:
         return None
-    X = model_data[['year', 'km_driven', 'fuel', 'seller_type', 'transmission', 'owner']]
-    y = model_data['selling_price']
+    X = required_data[['year', 'km_driven', 'fuel', 'seller_type', 'transmission', 'owner']]
+    y = required_data['selling_price']
     numeric_features = ['year', 'km_driven']
     categorical_features = ['fuel', 'seller_type', 'transmission', 'owner']
     numeric_transformer = Pipeline(steps=[
