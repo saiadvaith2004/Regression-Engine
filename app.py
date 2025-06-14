@@ -1,18 +1,20 @@
 # The Website to see the result is http://127.0.0.1:5000
-from flask import Flask, request, render_template_string # type: ignore
+from flask import Flask, request, render_template_string  # type: ignore
 import pandas as pd
-from sklearn.model_selection import train_test_split # type: ignore
-from sklearn.metrics import mean_squared_error, r2_score # type: ignore
-from sklearn.preprocessing import PolynomialFeatures, OneHotEncoder # type: ignore
-from sklearn.compose import ColumnTransformer # type: ignore
-from sklearn.pipeline import Pipeline # type: ignore
-from sklearn.impute import SimpleImputer # type: ignore
-import xgboost as xgb # type: ignore
-app = Flask(__name__) #Creates an instance of the in-built class named Flask which is in the module flask
+from sklearn.model_selection import train_test_split  # type: ignore
+from sklearn.metrics import mean_squared_error, r2_score  # type: ignore
+from sklearn.preprocessing import PolynomialFeatures, OneHotEncoder  # type: ignore
+from sklearn.compose import ColumnTransformer  # type: ignore
+from sklearn.pipeline import Pipeline  # type: ignore
+from sklearn.impute import SimpleImputer  # type: ignore
+import xgboost as xgb  # type: ignore
+
+app = Flask(__name__)  # Creates an instance of the in-built class named Flask which is in the module flask
+
 # Load the dataset
 data = pd.read_csv("CarsDataset.csv")
+
 # Preprocess and train the model
-#Train Model function is called in the index() function
 def train_model(modelname):
     model_data = data[data['name'] == modelname].copy()
     if model_data.empty:
@@ -39,10 +41,10 @@ def train_model(modelname):
         ('regressor', xgb.XGBRegressor(objective='reg:squarederror', n_estimators=100, learning_rate=0.1))
     ])
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-    model_pipeline.fit(X_train, y_train) # The model gets trained on the given dataset
+    model_pipeline.fit(X_train, y_train)  # The model gets trained on the given dataset
     return model_pipeline
+
 @app.route('/', methods=['GET', 'POST'])
-#The index function is called automatically when the request is made through entering the url http://127.0.0.1:5000
 def index():
     prediction = None
     error = None
@@ -69,6 +71,7 @@ def index():
             predicted_price = model_pipeline.predict(prediction_input)
             prediction = round(float(predicted_price[0]), 2)
     return render_template_string(HTML_TEMPLATE, prediction=prediction, error=error)
+
 HTML_TEMPLATE = '''
 <!DOCTYPE html>
 <html lang="en">
@@ -87,15 +90,21 @@ HTML_TEMPLATE = '''
         }
         .container {
             background: white;
-            padding: 24px 40px;
+            padding: 40px;  /* Increased padding for better spacing */
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            width: 360px;
+            width: 400px;  /* Adjusted width for better layout */
         }
         h2 {
-            margin-bottom: 24px;
+            margin-bottom: 20px;  /* Adjusted margin for spacing */
             text-align: center;
             color: #333;
+        }
+        .subheading {
+            margin-bottom: 20px;  /* Space below the subheading */
+            text-align: center;
+            color: #555;
+            font-weight: 600;
         }
         label {
             display: block;
@@ -147,6 +156,7 @@ HTML_TEMPLATE = '''
 <body>
     <div class="container">
         <h2>Car Price Predictor</h2>
+        <div class="subheading">Enter Car Details</div>  <!-- New subheading added -->
         <form method="post">
             <label for="modelname">Car Model Name</label>
             <input type="text" id="modelname" name="modelname" required />
@@ -173,5 +183,6 @@ HTML_TEMPLATE = '''
 </body>
 </html>
 '''
+
 if __name__ == '__main__':
     app.run(debug=True)
