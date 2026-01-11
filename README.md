@@ -1,9 +1,22 @@
-Designed a machine learning web application to predict outcomes using regression techniques. It is built in multiple phases, each improving upon the previous in terms of accuracy, generalizability, and technical depth.
+## Regression Engine
 
-1) Developed a car price prediction model using Multiple Linear Regression and integrated into a user-friendly Flask web app.
-2) Enhanced the model to work with global datasets by allowing flexible feature and target selections. Added feature engineering like squared features and improved prediction accuracy.
-3) Generalized the system by enabling it to handle global datasets with categorical and numerical features.
-4) Formulated a process to understand the error rates in real world datasets by mimicking it with Synthetic AI generated data there by helping to better test the ML models and improve data accuracy
+A modular, REST-based regression system designed to train and serve predictive models on real-world datasets.
 
-Technologies Used: Python, Flask, HTML/CSS, Pandas, NumPy, Scikit-learn, XGBoost.
+### Key Features
+- RESTful APIs for dataset ingestion, model training, and prediction
+- Robust validation and error handling for noisy data
+- Support for numerical and categorical features
+- Modular architecture for easy extension across datasets and models
 
+### Tech Stack
+- Python
+- Flask
+- REST APIs
+
+### Engineering Highlights
+- Designed clean request–response workflows
+- Implemented feature engineering and accuracy evaluation
+- Focused on scalability, reusability, and maintainability
+
+### Use Case
+This project demonstrates backend engineering principles, API design, and data handling required for production-grade systems.
